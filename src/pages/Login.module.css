@@ -23,6 +23,15 @@
   box-shadow: 10px 10px var(--form-shadow);
 }
 
+.left {
+  width: 350px;
+  height: 100%;
+  background-color: gray;
+  background-size: cover;
+
+  background-image: url(/login-photo.jpg);
+}
+
 .right {
   display: flex;
   gap: 2.5rem;
@@ -103,7 +112,7 @@
 }
 
 .container input:focus,
-button:focus {
+.container button:focus {
   outline: 2px solid var(--focus-color);
 }
 

@@ -4,10 +4,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import PopupContext from "./contexts/PopupContext";
 
 import "./variables.css";
 import "./App.css";
@@ -15,6 +14,7 @@ import "./reset.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -23,6 +23,7 @@ const App = () => {
       const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode payload
       if (decodedToken.role == "ADMIN") {
         setIsLoggedIn(true);
+        setUser(decodedToken.username);
       }
     }
   }, []);
@@ -43,7 +44,7 @@ const App = () => {
 
         <Route
           path="/dashboard"
-          element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
+          element={isLoggedIn ? <Dashboard user={user} /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>

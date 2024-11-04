@@ -1,21 +1,30 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import CreatePost from "../views/CreatePost";
+import Header from "../components/Header";
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
   const [activeView, setActiveView] = useState("create"); // Default to viewing all posts
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <nav>
-        <button onClick={() => setActiveView("view")}>View Posts</button>
-        <button onClick={() => setActiveView("create")}>Create New Post</button>
-      </nav>
+    <>
+      <Header
+        user={user}
+        activeView={activeView}
+        setActiveView={setActiveView}
+      />
+      <div>
+        <h1>Dashboard</h1>
 
-      {activeView === "create" && <CreatePost />}
-    </div>
+        {activeView === "create" && <CreatePost />}
+      </div>
+    </>
   );
+};
+
+Dashboard.propTypes = {
+  user: PropTypes.string,
 };
 
 export default Dashboard;

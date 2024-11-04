@@ -19,9 +19,13 @@
   --focus-color: skyblue;
 
   /* --------------------------------- */
+  --header-color: #fff;
+  --header-user-bg: #303030;
+  --header-button-bg: transparent;
+  --header-button-bg-hover: #000;
 
   --page-bg: #ffffff;
   --text-on-bg: #000;
   --gray-on-bg: #828282;
-  --link-on-bg: #4183c4;
+  --link-on-bg: #24bfca;
 }
