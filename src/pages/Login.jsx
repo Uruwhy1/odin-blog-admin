@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
+
+import styles from "./Login.module.css";
+import { PopupContext } from "../contexts/PopupContext.jsx";
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const { showPopup } = useContext(PopupContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +37,7 @@ const Login = ({ setIsLoggedIn }) => {
       if (decodedToken.role !== "USER") {
         setIsLoggedIn(true);
         window.location.href = "/dashboard";
+        showPopup("Logged in successfully.", true);
       } else {
         setError(
           "Access denied. Only authors and admins can access this site."
@@ -41,31 +47,47 @@ const Login = ({ setIsLoggedIn }) => {
     } catch (err) {
       console.error(err.message);
       setError(err.message);
+      showPopup(error, false);
     }
   };
 
   return (
-    <div>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+    <main className={styles.mainContainer}>
+      <div className={styles.container}>
+        <div className={styles.right}>
+          <h2>Log In</h2>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.item}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id={styles.email}
+                name="email"
+                placeholder="example@email.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className={styles.item}>
+              <label htmlFor="password" id={styles.passwordLabel}>
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="●●●●●●●"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </main>
   );
 };
 

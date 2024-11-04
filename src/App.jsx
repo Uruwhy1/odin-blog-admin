@@ -4,18 +4,26 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import PopupContext from "./contexts/PopupContext";
+
+import "./variables.css";
+import "./App.css";
+import "./reset.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode payload
-    if (token && decodedToken.role == "ADMIN") {
-      setIsLoggedIn(true);
+
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode payload
+      if (decodedToken.role == "ADMIN") {
+        setIsLoggedIn(true);
+      }
     }
   }, []);
 
