@@ -1,6 +1,7 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -20,16 +21,23 @@ const Login = () => {
       );
 
       if (!response.ok) {
-        console.log(response);
         throw new Error("Login failed. Please check your credentials.");
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
 
       localStorage.setItem("authToken", data.token);
+      const decodedToken = JSON.parse(atob(data.token.split(".")[1]));
 
-      window.location.href = "/dashboard";
+      if (decodedToken.role !== "USER") {
+        setIsLoggedIn(true);
+        window.location.href = "/dashboard";
+      } else {
+        setError(
+          "Access denied. Only authors and admins can access this site."
+        );
+        localStorage.removeItem("authToken");
+      }
     } catch (err) {
       console.error(err.message);
       setError(err.message);
@@ -61,4 +69,7 @@ const Login = () => {
   );
 };
 
+Login.propTypes = {
+  setIsLoggedIn: PropTypes.func,
+};
 export default Login;
