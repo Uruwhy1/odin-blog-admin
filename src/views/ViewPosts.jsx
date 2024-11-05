@@ -3,8 +3,9 @@ import styles from "./ViewPosts.module.css";
 import LoadingContext from "../contexts/LoadingContext";
 import Loading from "../components/Loading";
 import PopupContext from "../contexts/PopupContext";
+import PropTypes from "prop-types";
 
-const ViewPosts = () => {
+const ViewPosts = ({ handlePostClick }) => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,7 +71,11 @@ const ViewPosts = () => {
         <div className={styles.posts}>
           {filteredPosts.length ? (
             filteredPosts.map((post) => (
-              <div key={post.id} className={styles.post}>
+              <div
+                key={post.id}
+                className={styles.post}
+                onClick={() => handlePostClick(post.id)}
+              >
                 <h2>{post.title}</h2>
               </div>
             ))
@@ -81,6 +86,10 @@ const ViewPosts = () => {
       </div>
     </>
   );
+};
+
+ViewPosts.propTypes = {
+  handlePostClick: PropTypes.func.isRequired,
 };
 
 export default ViewPosts;

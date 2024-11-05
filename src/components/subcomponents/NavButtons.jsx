@@ -21,6 +21,14 @@ const NavButtons = ({ activeView, setActiveView }) => {
         >
           View
         </button>
+        <button
+          className={`${styles.button}  ${
+            activeView === "edit" ? styles.active : styles.unclickable
+          }
+          }`}
+        >
+          Edit
+        </button>
       </nav>
     </div>
   );

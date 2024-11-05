@@ -25,7 +25,7 @@
   padding: 0.6rem 1.25rem;
 
   cursor: pointer;
-  transition: all 0.2s;
+  transition: box-shadow 0.2s, background 0.2s;
 
   &:hover {
     box-shadow: 4px 4px 0 var(--header-button-bg-hover);
@@ -35,5 +35,13 @@
     color: var(--header-color);
     background-color: var(--header-button-bg-hover);
     box-shadow: 4px 4px 0 var(--link-on-bg);
+  }
+
+  &.unclickable {
+    user-select: none;
+    pointer-events: none;
+
+    background-color: rgb(209, 209, 209);
+    box-shadow: 4px 4px 0 var(--gray-on-bg);
   }
 }

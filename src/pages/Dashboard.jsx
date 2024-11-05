@@ -4,9 +4,16 @@ import PropTypes from "prop-types";
 import CreatePost from "../views/CreatePost";
 import Header from "../components/Header";
 import ViewPosts from "../views/ViewPosts";
+import EditPost from "../views/EditPost";
 
 const Dashboard = ({ user }) => {
   const [activeView, setActiveView] = useState("create"); // Default to viewing all posts
+  const [currentPost, setCurrentPost] = useState(null);
+
+  const handlePostClick = (id) => {
+    setCurrentPost(id);
+    setActiveView("edit");
+  };
 
   return (
     <>
@@ -16,7 +23,8 @@ const Dashboard = ({ user }) => {
         setActiveView={setActiveView}
       />
       {activeView === "create" && <CreatePost />}
-      {activeView === "view" && <ViewPosts />}
+      {activeView === "view" && <ViewPosts handlePostClick={handlePostClick} />}
+      {activeView === "edit" && <EditPost id={currentPost} />}
     </>
   );
 };
