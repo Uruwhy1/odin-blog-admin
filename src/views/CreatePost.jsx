@@ -1,21 +1,26 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import PopupContext from "../contexts/PopupContext";
+
+import styles from "./createPost.module.css";
+import Markdown from "react-markdown";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [showCarousel, setShowCarousel] = useState(false);
 
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const { showPopup } = useContext(PopupContext);
 
   const token = localStorage.getItem("authToken");
 
   const handleImageChange = (e) => {
-    setImageFile(e.target.files[0]);
+    const file = e.target.files[0];
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const uploadImage = async () => {
@@ -68,11 +73,11 @@ const CreatePost = () => {
         throw new Error("Failed to create post.");
       }
 
-      setSuccess(true);
       setTitle("");
       setSummary("");
       setContent("");
       setImageFile(null);
+      setImagePreview(null);
       setShowCarousel(false);
     } catch (err) {
       console.error(err);
@@ -82,9 +87,18 @@ const CreatePost = () => {
     }
   };
 
+  useEffect(() => {
+    // Clean up the preview URL when the component is unmounted or when imageFile changes
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imageFile]);
+
   return (
-    <div>
-      <h1>Create New Post</h1>
+    <main className={styles.container}>
+      {loading ? <div className={styles.loading}></div> : ""}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -119,8 +133,24 @@ const CreatePost = () => {
           {loading ? "Creating Post..." : "Create Post"}
         </button>
       </form>
-      {success && <p>Post created successfully!</p>}
-    </div>
+
+      <div className={styles.content}>
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Selected file preview"
+            className={styles.previewImg}
+          />
+        )}
+        <div className={styles.info}>
+          <h1 className={styles.title}>{title}</h1>
+          <p className={styles.subtitle}>{summary}</p>
+        </div>
+        <div className={styles.markdown}>
+          <Markdown>{content}</Markdown>
+        </div>
+      </div>
+    </main>
   );
 };
 

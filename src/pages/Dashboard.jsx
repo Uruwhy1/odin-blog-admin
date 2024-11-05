@@ -14,11 +14,7 @@ const Dashboard = ({ user }) => {
         activeView={activeView}
         setActiveView={setActiveView}
       />
-      <div>
-        <h1>Dashboard</h1>
-
-        {activeView === "create" && <CreatePost />}
-      </div>
+      {activeView === "create" && <CreatePost />}
     </>
   );
 };
