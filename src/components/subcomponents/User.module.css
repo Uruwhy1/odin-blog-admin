@@ -1,10 +1,10 @@
 .user {
   display: flex;
   flex-direction: row-reverse;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
 
-  max-width: calc(236px + 2rem);
+  max-width: calc(250px + 2rem);
   overflow: hidden;
 
   user-select: none;
@@ -17,7 +17,7 @@
 
   transition: max-width 0.2s ease-out, background 0.2s ease-out;
   &:hover {
-    max-width: calc(400px + 2rem);
+    max-width: calc(400px + 2.5rem);
   }
 
   > div {
@@ -26,6 +26,13 @@
     justify-content: center;
     align-items: center;
     gap: 0.8rem;
+
+    width: 250px;
+
+    > p {
+      max-width: calc(220px - 0.8rem);
+      word-wrap: anywhere;
+    }
   }
 }
 

@@ -29,9 +29,8 @@ const ViewPosts = ({ handlePostClick }) => {
 
       // if not admin get only user posts
       if (role !== "ADMIN") {
-        console.log("xd");
-        const userId = JSON.parse(atob(token.split(".")[1]))?.userId; // assuming userId is in the token
-        url = `${import.meta.env.VITE_API_URL}/posts/user/:authorId=${userId}`;
+        const userId = JSON.parse(atob(token.split(".")[1])).id;
+        url = `${import.meta.env.VITE_API_URL}/posts/user/${userId}`;
       }
 
       const response = await fetch(url, {
@@ -40,6 +39,9 @@ const ViewPosts = ({ handlePostClick }) => {
         },
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
       setPosts(data.posts);
       setFilteredPosts(data.posts);
     } catch (error) {
