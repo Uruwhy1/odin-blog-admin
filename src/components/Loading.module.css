@@ -1,0 +1,50 @@
+.loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  backdrop-filter: blur(20px);
+
+  z-index: 999;
+  transition: opacity 0.5s;
+}
+
+.loading p {
+  font-size: min(14vw, 5rem);
+  font-weight: bold;
+  color: var(--loading-color);
+
+  width: 7.5ch;
+  text-align: start;
+  overflow: hidden;
+
+  position: relative;
+}
+
+.loader {
+  font-size: min(14vw, 5rem);
+  width: 7.5ch;
+  height: 22px;
+
+  border: 2px solid var(--loading-color);
+
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(var(--loading-color) 0 0) 0/0% no-repeat
+    transparent;
+  animation: loader 1.4s 1 ease-in-out forwards;
+}
+@keyframes loader {
+  100% {
+    background-size: 101%;
+  }
+}
