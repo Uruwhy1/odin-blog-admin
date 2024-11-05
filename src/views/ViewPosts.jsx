@@ -9,38 +9,58 @@ const ViewPosts = ({ handlePostClick }) => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [fading, setFading] = useState(false);
-  const { loading, setLoading } = useContext(LoadingContext);
 
+  const { loading, setLoading } = useContext(LoadingContext);
   const { showPopup } = useContext(PopupContext);
 
-  // initial post fetching
-  useEffect(() => {
+  const token = localStorage.getItem("authToken");
+
+  const getUserRole = () => {
+    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+    return decodedToken?.role;
+  };
+
+  const fetchPosts = async () => {
     setLoading(true);
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/posts`);
-        const data = await response.json();
-        setPosts(data.posts);
-        setFilteredPosts(data.posts);
+    try {
+      const role = getUserRole();
+      let url = `${import.meta.env.VITE_API_URL}/posts`;
 
-        setFading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-        console.log(posts, filteredPosts);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        showPopup(error.message, false);
+      // if not admin get only user posts
+      if (role !== "ADMIN") {
+        console.log("xd");
+        const userId = JSON.parse(atob(token.split(".")[1]))?.userId; // assuming userId is in the token
+        url = `${import.meta.env.VITE_API_URL}/posts/user/:authorId=${userId}`;
       }
-    };
 
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setPosts(data.posts);
+      setFilteredPosts(data.posts);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      showPopup(error.message, false);
+    } finally {
+      setTimeout(() => {
+        setFading(true);
+      }, 200);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 700);
+    }
+  };
+
+  useEffect(() => {
     fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // filtering with text input
   useEffect(() => {
     let displayedPosts = posts;
 

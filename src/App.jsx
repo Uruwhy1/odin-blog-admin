@@ -21,10 +21,23 @@ const App = () => {
 
     if (token) {
       const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode payload
-      if (decodedToken.role == "ADMIN") {
-        setIsLoggedIn(true);
-        setUser(decodedToken.username);
+      const expiryTime = decodedToken.exp * 1000;
+
+      if (decodedToken.role == "USER") {
+        return;
       }
+
+      setIsLoggedIn(true);
+      setUser(decodedToken.username);
+
+      const timeout = setTimeout(() => {
+        localStorage.removeItem("authToken");
+        setIsLoggedIn(false);
+        setUser("");
+        console.log("Session expired. Token has been removed.");
+      }, expiryTime - Date.now());
+
+      return () => clearTimeout(timeout);
     }
   }, []);
 

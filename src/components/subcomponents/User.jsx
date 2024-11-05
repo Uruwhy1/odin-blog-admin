@@ -2,6 +2,11 @@ import PropTypes from "prop-types";
 import styles from "./User.module.css";
 
 const User = ({ user }) => {
+  function logout() {
+    localStorage.removeItem("authToken");
+    location.reload();
+  }
+
   return (
     <div className={styles.user}>
       <div>
@@ -21,7 +26,9 @@ const User = ({ user }) => {
         </svg>
         <p>Welcome, {user.split(" ")[0]}</p>
       </div>
-      <button className={styles.logout}>Logout</button>
+      <button onClick={logout} className={styles.logout}>
+        Logout
+      </button>
     </div>
   );
 };
