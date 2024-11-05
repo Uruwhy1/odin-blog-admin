@@ -20,9 +20,11 @@
 
   /* --------------------------------- */
   --header-color: #fff;
-  --header-user-bg: #303030;
   --header-button-bg: transparent;
-  --header-button-bg-hover: #000;
+  --header-button-bg-hover: var(--text-on-bg);
+
+  --box-shadow: #303030;
+  --border: #8c8c8c;
 
   --page-bg: #ffffff;
   --text-on-bg: #000;

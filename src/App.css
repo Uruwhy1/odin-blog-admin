@@ -12,3 +12,8 @@ body {
   min-width: 100vw;
   min-height: 100vh;
 }
+
+#root {
+  display: grid;
+  grid-template-rows: 90px 1fr;
+}

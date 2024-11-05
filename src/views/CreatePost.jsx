@@ -98,8 +98,8 @@ const CreatePost = () => {
 
   return (
     <main className={styles.container}>
-      {loading ? <div className={styles.loading}></div> : ""}
       <form onSubmit={handleSubmit}>
+        {loading ? <div className={styles.loading}></div> : ""}
         <input
           type="text"
           placeholder="Title"
