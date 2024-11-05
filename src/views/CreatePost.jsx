@@ -45,7 +45,6 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(token);
     setLoading(true);
 
     try {
@@ -81,7 +80,7 @@ const CreatePost = () => {
       setShowCarousel(false);
     } catch (err) {
       console.error(err);
-      showPopup("err", false);
+      showPopup(err.message, false);
     } finally {
       setLoading(false);
     }
@@ -94,6 +93,7 @@ const CreatePost = () => {
         URL.revokeObjectURL(imagePreview);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile]);
 
   return (

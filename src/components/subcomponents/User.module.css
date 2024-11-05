@@ -6,7 +6,6 @@
 
   max-width: calc(236px + 2rem);
   overflow: hidden;
-  z-index: 99999;
 
   user-select: none;
 
