@@ -24,6 +24,7 @@
   --header-button-bg-hover: var(--text-on-bg);
 
   --box-shadow: #303030;
+  --hover-shadow: rgb(35, 155, 211);
   --border: #8c8c8c;
 
   --page-bg: #ffffff;
@@ -32,6 +33,5 @@
   --link-on-bg: #24bfca;
 
   --delete-bg: #e63946;
-  --delete-bg-hover: #e63946;
-  --delete-bg-active: #e63946;
+  --delete-bg-hover: var(--page-bg);
 }

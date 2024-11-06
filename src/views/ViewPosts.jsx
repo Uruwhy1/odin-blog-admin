@@ -15,16 +15,16 @@ const ViewPosts = ({ handlePostClick }) => {
   const { showPopup } = useContext(PopupContext);
 
   const token = localStorage.getItem("authToken");
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
 
   const getUserRole = () => {
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return decodedToken?.role;
+    return decodedToken.role;
   };
 
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const role = getUserRole();
+      const role = await getUserRole();
       let url = `${import.meta.env.VITE_API_URL}/posts`;
 
       // if not admin get only user posts
@@ -126,9 +126,17 @@ const ViewPosts = ({ handlePostClick }) => {
         <div className={styles.posts}>
           {filteredPosts.length ? (
             filteredPosts.map((post) => (
-              <div key={post.id}>
+              <div
+                key={post.id}
+                className={`${
+                  decodedToken.role === "ADMIN" &&
+                  decodedToken.id === post.userId
+                    ? styles.ownPost
+                    : ""
+                }`}
+              >
                 <div
-                  className={styles.post}
+                  className={`${styles.post} }`}
                   onClick={() => handlePostClick(post.id)}
                 >
                   <h2>{post.title}</h2>

@@ -34,7 +34,7 @@
   &.active {
     color: var(--header-color);
     background-color: var(--header-button-bg-hover);
-    box-shadow: 4px 4px 0 var(--link-on-bg);
+    box-shadow: 4px 4px 0 var(--hover-shadow);
   }
 
   &.unclickable {

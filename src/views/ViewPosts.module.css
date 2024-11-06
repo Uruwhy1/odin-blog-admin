@@ -47,10 +47,27 @@
   }
 
   &:hover {
-    box-shadow: 4px 4px var(--box-shadow);
+    box-shadow: 4px 4px var(--hover-shadow) !important;
   }
 
   z-index: 2;
+}
+
+.ownPost {
+  position: relative;
+
+  .post {
+    box-shadow: 4px 4px var(--box-shadow);
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: calc(1.5rem - 5px);
+
+    content: "Own Post.";
+    font-weight: 300;
+  }
 }
 
 .post h2 {
@@ -62,7 +79,7 @@
   background-color: var(--delete-bg);
   color: var(--delete-bg);
 
-  border: none;
+  border: 1px solid transparent;
   border-radius: 4px;
   padding: 8px;
 
@@ -89,17 +106,16 @@
 
 .delete:hover {
   background-color: var(--delete-bg-hover);
-  color: #fff;
+  color: red;
+  border: 1px solid var(--border);
 
   transform: translateY(-20px);
-
-  .animate {
-    animation: floatX 1s linear 1;
-  }
 }
 
 .delete:active {
-  background-color: var(--delete-bg-active);
+  .animate {
+    animation: floatX 1s linear 1;
+  }
 }
 
 @keyframes floatX {
