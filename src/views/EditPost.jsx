@@ -115,7 +115,7 @@ const EditPost = ({ id }) => {
         throw new Error("Failed to update post.");
       }
 
-      showPopup("Post uploaded.", true);
+      showPopup("Post updated.", true);
     } catch (err) {
       console.error(err);
       showPopup(err.message, false);

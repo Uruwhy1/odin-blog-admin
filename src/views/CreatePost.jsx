@@ -79,7 +79,7 @@ const CreatePost = () => {
       setImagePreview(null);
       setShowCarousel(false);
 
-      showPopup("Post uploaded.", true);
+      showPopup("Post created.", true);
     } catch (err) {
       console.error(err);
       showPopup(err.message, false);
