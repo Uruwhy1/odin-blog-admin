@@ -6,8 +6,7 @@ import Header from "../components/Header";
 import ViewPosts from "../views/ViewPosts";
 import EditPost from "../views/EditPost";
 
-const Dashboard = ({ user }) => {
-  const [activeView, setActiveView] = useState("create"); // Default to viewing all posts
+const Dashboard = ({ user, setActiveView, activeView }) => {
   const [currentPost, setCurrentPost] = useState(null);
 
   const handlePostClick = (id) => {
@@ -30,7 +29,9 @@ const Dashboard = ({ user }) => {
 };
 
 Dashboard.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.string.isRequired,
+  setActiveView: PropTypes.func.isRequired,
+  activeView: PropTypes.string.isRequired,
 };
 
 export default Dashboard;

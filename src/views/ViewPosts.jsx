@@ -50,11 +50,11 @@ const ViewPosts = ({ handlePostClick }) => {
     } finally {
       setTimeout(() => {
         setFading(true);
-      }, 200);
+      }, 500);
 
       setTimeout(() => {
         setLoading(false);
-      }, 700);
+      }, 900);
     }
   };
 

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import PopupContext from "../contexts/PopupContext";
 
-import styles from "./createPost.module.css";
+import styles from "./CreatePost.module.css";
 import Markdown from "react-markdown";
 
 const CreatePost = () => {
@@ -78,6 +78,8 @@ const CreatePost = () => {
       setImageFile(null);
       setImagePreview(null);
       setShowCarousel(false);
+
+      showPopup("Post uploaded.", true);
     } catch (err) {
       console.error(err);
       showPopup(err.message, false);
@@ -98,8 +100,8 @@ const CreatePost = () => {
 
   return (
     <main className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        {loading ? <div className={styles.loading}></div> : ""}
+      <form onSubmit={handleSubmit} className={loading ? styles.disabled : ""}>
+        {loading ? <div className={styles.disabled}></div> : ""}
         <input
           type="text"
           placeholder="Title"
