@@ -42,10 +42,6 @@
 
   transition: box-shadow 0.15s;
 
-  > * {
-    flex-shrink: 0;
-  }
-
   &:hover {
     box-shadow: 4px 4px var(--hover-shadow) !important;
   }
@@ -72,7 +68,9 @@
 
 .post h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.1rem;
+
+  text-wrap: pretty;
 }
 
 .delete {
@@ -133,5 +131,13 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+/* ---------------------------------- */
+
+@media screen and (max-width: 500px) {
+  :root {
+    font-size: 15px;
   }
 }

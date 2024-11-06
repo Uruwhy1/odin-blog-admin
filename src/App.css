@@ -15,5 +15,5 @@ body {
 
 #root {
   display: grid;
-  grid-template-rows: 90px 1fr;
+  grid-template-rows: auto 1fr;
 }

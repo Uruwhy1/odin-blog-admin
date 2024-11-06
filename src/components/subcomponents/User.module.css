@@ -1,12 +1,10 @@
 .user {
   display: flex;
-  flex-direction: row-reverse;
-  gap: 1rem;
   align-items: center;
 
-  max-width: calc(250px + 2rem);
-  overflow: hidden;
+  height: 80px;
 
+  position: relative;
   user-select: none;
 
   padding: 0 1rem;
@@ -15,24 +13,52 @@
   color: var(--text-on-bg);
   border-radius: 5px;
 
-  transition: max-width 0.2s ease-out, background 0.2s ease-out;
-  &:hover {
-    max-width: calc(400px + 2.5rem);
-  }
-
   > div {
-    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.8rem;
 
-    width: 250px;
+    transition: opacity 0.1s;
+    width: 100%;
 
     > p {
-      max-width: calc(220px - 0.8rem);
       word-wrap: anywhere;
     }
+  }
+}
+
+.user:hover {
+  > div {
+    opacity: 0;
+  }
+
+  > .logout {
+    display: block;
+    opacity: 1;
+  }
+}
+
+.logout {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  background-color: var(--text-on-bg);
+  color: #ffffff;
+
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem 2rem;
+
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -47,18 +73,23 @@
   color: var(--page-bg);
 }
 
-.user .logout {
-  background-color: var(--text-on-bg);
-  color: #ffffff;
+@media (hover: none) {
+  .user {
+    height: fit-content;
+    padding: 1rem;
+    flex-direction: row-reverse;
+    gap: 1rem;
+  }
+  .logout {
+    position: static;
+    transform: none;
 
-  border: none;
-  border-radius: 3px;
-  padding: 0.5rem 2rem;
+    opacity: 1;
+  }
+}
 
-  font-weight: 500;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
+@media (max-width: 830px) and (hover: none) {
+  .user {
+    flex-direction: column;
   }
 }
