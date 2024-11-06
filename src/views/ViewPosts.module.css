@@ -1,11 +1,9 @@
 .container {
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .controls {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .controls input,
@@ -19,23 +17,105 @@
 .posts {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 0.5rem 1rem;
+
+  > div {
+    display: flex;
+    align-items: end;
+    flex-direction: column-reverse;
+  }
 }
 
 .post {
+  position: relative;
   padding: 15px;
   border: 1px solid var(--border);
   border-radius: 4px;
 
   cursor: pointer;
 
+  background-color: var(--page-bg);
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   transition: box-shadow 0.15s;
+
+  > * {
+    flex-shrink: 0;
+  }
+
   &:hover {
     box-shadow: 4px 4px var(--box-shadow);
   }
+
+  z-index: 2;
 }
 
 .post h2 {
   margin: 0;
   font-size: 18px;
+}
+
+.delete {
+  background-color: var(--delete-bg);
+  color: var(--delete-bg);
+
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+
+  position: relative;
+  right: 1rem;
+  top: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1;
+}
+
+@media (hover: none) {
+  .delete {
+    top: calc(1.5rem - 10px);
+    color: #fff;
+  }
+}
+
+.delete:hover {
+  background-color: var(--delete-bg-hover);
+  color: #fff;
+
+  transform: translateY(-20px);
+
+  .animate {
+    animation: floatX 1s linear 1;
+  }
+}
+
+.delete:active {
+  background-color: var(--delete-bg-active);
+}
+
+@keyframes floatX {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1.5rem);
+  }
+  50.1% {
+    transform: translateX(-1.5rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

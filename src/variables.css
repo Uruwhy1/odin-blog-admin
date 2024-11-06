@@ -30,4 +30,8 @@
   --text-on-bg: #000;
   --gray-on-bg: #828282;
   --link-on-bg: #24bfca;
+
+  --delete-bg: #e63946;
+  --delete-bg-hover: #e63946;
+  --delete-bg-active: #e63946;
 }
