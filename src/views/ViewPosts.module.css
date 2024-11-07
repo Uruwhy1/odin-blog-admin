@@ -38,8 +38,9 @@
   background-color: var(--page-bg);
 
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
 
   transition: box-shadow 0.15s;
 
@@ -72,6 +73,29 @@
   font-size: 1.1rem;
 
   text-wrap: pretty;
+}
+
+.published,
+.unpublished {
+  border: none;
+  border-radius: 5px;
+
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    background-color: var(--hover-shadow);
+    color: var(--page-bg);
+  }
+}
+.unpublished {
+  background-color: var(--toggle-negative-bg);
+  color: var(--error-text);
+}
+.published {
+  background-color: var(--toggle-positive-bg);
+  color: var(--success-text);
 }
 
 .delete {

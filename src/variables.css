@@ -38,6 +38,9 @@
   --delete-bg: #e63946;
   --delete-bg-hover: var(--page-bg);
 
+  --toggle-negative-bg: var(--error);
+  --toggle-positive-bg: var(--success);
+
   /* -------------------------------- */
 
   --create-form-color: var(--text-on-bg);

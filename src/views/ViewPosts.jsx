@@ -25,7 +25,7 @@ const ViewPosts = ({ handlePostClick }) => {
     setLoading(true);
     try {
       const role = await getUserRole();
-      let url = `${import.meta.env.VITE_API_URL}/posts`;
+      let url = `${import.meta.env.VITE_API_URL}/posts/all`;
 
       // if not admin get only user posts
       if (role !== "ADMIN") {
@@ -108,6 +108,47 @@ const ViewPosts = ({ handlePostClick }) => {
     }
   };
 
+  const handleTogglePublish = async (event, postId, currentStatus) => {
+    event.stopPropagation();
+    console.log(currentStatus);
+    const newStatus = !currentStatus;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/posts/${postId}/publish`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ published: newStatus }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to update post status.");
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId ? { ...post, published: newStatus } : post
+        )
+      );
+      setFilteredPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId ? { ...post, published: newStatus } : post
+        )
+      );
+
+      showPopup(
+        `Post ${newStatus ? "published" : "unpublished"} successfully.`,
+        true
+      );
+    } catch (error) {
+      console.error("Error updating post status:", error);
+      showPopup(error.message, false);
+    }
+  };
+
   return (
     <>
       <Loading
@@ -140,6 +181,16 @@ const ViewPosts = ({ handlePostClick }) => {
                   onClick={() => handlePostClick(post.id)}
                 >
                   <h2>{post.title}</h2>
+                  <button
+                    className={`${
+                      post.published ? styles.published : styles.unpublished
+                    }`}
+                    onClick={(e) => {
+                      handleTogglePublish(e, post.id, post.published);
+                    }}
+                  >
+                    {post.published ? "Published" : "Unpublished"}
+                  </button>
                 </div>
                 <button
                   onClick={(event) => handleDelete(event, post.id)}
