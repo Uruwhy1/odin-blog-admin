@@ -23,6 +23,13 @@ export const PopupProvider = ({ children }) => {
     const processQueue = async () => {
       if (popupActive || popupQueue.length === 0) return;
 
+      // do not repeat popups
+      console.log(currentPopup, popupQueue[0]);
+      if (currentPopup.text === popupQueue[0].text) {
+        setPopupQueue((prevQueue) => prevQueue.slice(1));
+        return;
+      }
+
       setPopupActive(true);
       setCurrentPopup(popupQueue[0]);
 
@@ -33,6 +40,7 @@ export const PopupProvider = ({ children }) => {
     };
 
     processQueue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupQueue, popupActive]);
 
   return (
