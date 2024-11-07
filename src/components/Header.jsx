@@ -7,7 +7,11 @@ const Header = ({ user, activeView, setActiveView }) => {
   return (
     <header className={styles.container}>
       <User user={user} />
-      <NavButtons setActiveView={setActiveView} activeView={activeView} />
+      <NavButtons
+        role={user}
+        setActiveView={setActiveView}
+        activeView={activeView}
+      />
     </header>
   );
 };

@@ -3,8 +3,9 @@ import styles from "./ViewPosts.module.css";
 import LoadingContext from "../contexts/LoadingContext";
 import PopupContext from "../contexts/PopupContext";
 import Loading from "../components/Loading";
+import PropTypes from "prop-types";
 
-const ViewUsers = () => {
+const ViewUsers = ({ setActiveView }) => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -19,7 +20,7 @@ const ViewUsers = () => {
   const isAdmin = decodedToken.role === "ADMIN";
 
   const fetchUsers = async () => {
-    if (!isAdmin) return; // only fetch if the user is admin
+    if (!isAdmin) setActiveView("view"); // only fetch if the user is admin
     setLoading(true);
 
     try {
@@ -132,6 +133,10 @@ const ViewUsers = () => {
       </div>
     </>
   );
+};
+
+ViewUsers.propTypes = {
+  setActiveView: PropTypes.func,
 };
 
 export default ViewUsers;

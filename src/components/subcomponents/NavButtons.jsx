@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import styles from "./NavButtons.module.css";
 
 const NavButtons = ({ activeView, setActiveView }) => {
+  const token = localStorage.getItem("authToken");
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
   return (
     <div className={styles.container}>
       <nav>
@@ -20,15 +22,20 @@ const NavButtons = ({ activeView, setActiveView }) => {
           }`}
         >
           Posts
-        </button>{" "}
-        <button
-          onClick={() => setActiveView("user")}
-          className={`${styles.button} ${
-            activeView === "user" ? styles.active : ""
-          }`}
-        >
-          Users
         </button>
+
+        {decodedToken.role === "ADMIN" ? (
+          <button
+            onClick={() => setActiveView("user")}
+            className={`${styles.button} ${
+              activeView === "user" ? styles.active : ""
+            }`}
+          >
+            Users
+          </button>
+        ) : (
+          ""
+        )}
       </nav>
     </div>
   );

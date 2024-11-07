@@ -45,7 +45,7 @@
   transform: translateX(-50%);
 
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.1s;
 
   background-color: var(--text-on-bg);
   color: var(--page-bg);

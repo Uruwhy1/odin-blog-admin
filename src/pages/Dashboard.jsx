@@ -25,7 +25,7 @@ const Dashboard = ({ user, setActiveView, activeView }) => {
       {activeView === "create" && <CreatePost />}
       {activeView === "view" && <ViewPosts handlePostClick={handlePostClick} />}
       {activeView === "edit" && <EditPost id={currentPost} />}
-      {activeView === "user" && <ViewUsers />}
+      {activeView === "user" && <ViewUsers setActiveView={setActiveView} />}
     </>
   );
 };
