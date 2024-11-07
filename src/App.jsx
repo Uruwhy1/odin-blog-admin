@@ -23,7 +23,6 @@ const App = () => {
     if (activeView == "edit") return;
 
     localStorage.setItem("activeView", activeView);
-    console.log(activeView);
   }, [activeView]);
 
   useEffect(() => {
@@ -58,7 +57,6 @@ const App = () => {
   }, []);
 
   // handle dark mode
-
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.querySelector(":root").classList.add("dark");

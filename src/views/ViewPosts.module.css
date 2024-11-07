@@ -75,20 +75,23 @@
   text-wrap: pretty;
 }
 
-.published,
-.unpublished {
+.post button {
   border: none;
   border-radius: 5px;
 
   padding: 0.5rem 1rem;
   cursor: pointer;
 
+  color: #000;
+
   transition: background-color 0.3s, color 0.3s;
   &:hover {
-    background-color: var(--hover-shadow);
+    background-color: var(--hover-toggle);
     color: var(--page-bg);
   }
 }
+
+/* FOR POST TOGGLE */
 .unpublished {
   background-color: var(--toggle-negative-bg);
   color: var(--error-text);
@@ -97,6 +100,19 @@
   background-color: var(--toggle-positive-bg);
   color: var(--success-text);
 }
+
+/* FOR USERS TOGGLE */
+.USER {
+  background-color: var(--user-user-bg);
+}
+.AUTHOR {
+  background-color: var(--user-author-bg);
+}
+.ADMIN {
+  background-color: var(--user-admin-bg);
+}
+
+/* -------------------- */
 
 .delete {
   background-color: var(--delete-bg);

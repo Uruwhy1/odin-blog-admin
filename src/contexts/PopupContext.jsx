@@ -24,7 +24,6 @@ export const PopupProvider = ({ children }) => {
       if (popupActive || popupQueue.length === 0) return;
 
       // do not repeat popups
-      console.log(currentPopup, popupQueue[0]);
       if (currentPopup.text === popupQueue[0].text) {
         setPopupQueue((prevQueue) => prevQueue.slice(1));
         return;

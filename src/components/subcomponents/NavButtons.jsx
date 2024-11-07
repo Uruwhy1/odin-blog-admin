@@ -19,15 +19,15 @@ const NavButtons = ({ activeView, setActiveView }) => {
             activeView === "view" ? styles.active : ""
           }`}
         >
-          View
-        </button>
+          Posts
+        </button>{" "}
         <button
-          className={`${styles.button}  ${
-            activeView === "edit" ? styles.active : styles.unclickable
-          }
+          onClick={() => setActiveView("user")}
+          className={`${styles.button} ${
+            activeView === "user" ? styles.active : ""
           }`}
         >
-          Edit
+          Users
         </button>
       </nav>
     </div>
