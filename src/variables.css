@@ -7,6 +7,8 @@
   --success-text: #597151;
   --success-shadow: #7fcc66;
 
+  --loading: var(--text-on-bg);
+
   /* ------------------------ */
 
   --form-page-bg: #303030;
@@ -21,7 +23,8 @@
   /* --------------------------------- */
   --header-color: #fff;
   --header-button-bg: transparent;
-  --header-button-bg-hover: var(--text-on-bg);
+  --header-button-bg-active: var(--text-on-bg);
+  --header-button-color-active: #fff;
 
   --box-shadow: #303030;
   --hover-shadow: rgb(35, 155, 211);
@@ -34,4 +37,27 @@
 
   --delete-bg: #e63946;
   --delete-bg-hover: var(--page-bg);
+
+  /* -------------------------------- */
+
+  --create-form-color: var(--text-on-bg);
+}
+
+:root.dark {
+  --page-bg: #303030;
+  --text-on-bg: #fff;
+  --gray-on-bg: #b8b8b8;
+
+  --hover-shadow: rgb(112, 204, 247);
+  --box-shadow: #fff;
+  --border: #838383;
+
+  --header-color: #000;
+  --header-button-color-active: #000;
+
+  --delete-bg: #b91e2b;
+
+  /* ------------------------------------ */
+
+  --create-form-bg: #444444;
 }

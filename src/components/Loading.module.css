@@ -20,7 +20,7 @@
 .loading p {
   font-size: min(14vw, 5rem);
   font-weight: bold;
-  color: var(--loading-color);
+  color: var(--loading);
 
   width: 7.5ch;
   text-align: start;
@@ -34,13 +34,12 @@
   width: 7.5ch;
   height: 22px;
 
-  border: 2px solid var(--loading-color);
+  border: 2px solid var(--loading);
 
   position: relative;
   overflow: hidden;
 
-  background: linear-gradient(var(--loading-color) 0 0) 0/0% no-repeat
-    transparent;
+  background: linear-gradient(var(--loading) 0 0) 0/0% no-repeat transparent;
   animation: loader 1.4s 1 ease-in-out forwards;
 }
 @keyframes loader {

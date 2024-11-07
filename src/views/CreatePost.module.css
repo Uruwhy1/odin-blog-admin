@@ -1,13 +1,21 @@
 .container {
   padding: 1rem 4rem;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 1.3fr 2fr;
   gap: 2rem;
 
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - 100px);
 }
 
-/* ----------- FORM ------------
+@media screen and (max-width: 1300px) {
+  .container {
+    grid-template-rows: 1.3fr 2fr;
+    grid-template-columns: 1fr;
+
+    max-height: fit-content;
+  }
+}
+/* ----------- FORM ------------ 
 ------------------------------- */
 .disabled {
   position: absolute;
@@ -30,17 +38,21 @@
   padding: 1.5rem;
 
   border: 1px solid var(--border);
-  background-color: #ffffff;
+  background-color: var(--create-form-bg);
   box-shadow: 8px 8px 0 var(--box-shadow);
+
+  color: var(--create-form-color);
 }
 
 .container form input[type="text"],
 .container form input[type="file"],
 .container form input[type="checkbox"],
 .container form textarea {
+  background-color: var(--page-bg);
+  border: 1px solid var(--border);
+
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
 }
@@ -72,7 +84,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #333;
+  color: var(--create-form-color);
 }
 
 /* ------------------------------------
@@ -91,6 +103,10 @@
 
   border: 1px solid var(--border);
   box-shadow: 8px 8px 0 var(--box-shadow);
+
+  background-color: var(--create-form-bg);
+
+  max-height: 100vh;
 }
 
 .markdown {

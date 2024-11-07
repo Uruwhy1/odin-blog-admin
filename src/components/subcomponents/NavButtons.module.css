@@ -19,7 +19,7 @@
 
   background-color: transparent;
   color: var(--text-on-bg);
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid var(--border);
 
   border-radius: 3px;
   padding: 0.6rem 1.25rem;
@@ -28,12 +28,12 @@
   transition: box-shadow 0.2s, background 0.2s;
 
   &:hover {
-    box-shadow: 4px 4px 0 var(--header-button-bg-hover);
+    box-shadow: 4px 4px 0 var(--header-button-bg-active);
   }
 
   &.active {
-    color: var(--header-color);
-    background-color: var(--header-button-bg-hover);
+    color: var(--header-button-color-active);
+    background-color: var(--header-button-bg-active);
     box-shadow: 4px 4px 0 var(--hover-shadow);
   }
 

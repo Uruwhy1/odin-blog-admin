@@ -57,6 +57,14 @@ const App = () => {
     setLoading(false);
   }, []);
 
+  // handle dark mode
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.querySelector(":root").classList.add("dark");
+    }
+  }, []);
+
   if (loading) return <div>Loading...</div>;
 
   return (
