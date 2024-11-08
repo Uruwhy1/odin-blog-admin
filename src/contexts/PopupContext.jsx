@@ -35,6 +35,7 @@ export const PopupProvider = ({ children }) => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
       setPopupQueue((prevQueue) => prevQueue.slice(1));
+      setCurrentPopup({ text: "", type: "" });
       setPopupActive(false);
     };
 

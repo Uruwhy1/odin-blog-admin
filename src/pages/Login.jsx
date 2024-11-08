@@ -7,7 +7,6 @@ import { PopupContext } from "../contexts/PopupContext.jsx";
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
 
   const { showPopup } = useContext(PopupContext);
 
@@ -39,15 +38,12 @@ const Login = ({ setIsLoggedIn }) => {
         window.location.href = "/dashboard";
         showPopup("Logged in successfully.", true);
       } else {
-        setError(
-          "Access denied. Only authors and admins can access this site."
-        );
+        showPopup("Access denied, only authors or admins can enter.", false);
         localStorage.removeItem("authToken");
       }
     } catch (err) {
+      showPopup(err.message, false);
       console.error(err.message);
-      setError(err.message);
-      showPopup(error, false);
     }
   };
 
