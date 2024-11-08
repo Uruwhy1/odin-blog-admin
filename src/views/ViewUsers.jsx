@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./ViewPosts.module.css";
 import LoadingContext from "../contexts/LoadingContext";
 import PopupContext from "../contexts/PopupContext";
-import Loading from "../components/Loading";
+import Loading from "../components/loading/Loading";
 import PropTypes from "prop-types";
 
 const ViewUsers = ({ setActiveView }) => {

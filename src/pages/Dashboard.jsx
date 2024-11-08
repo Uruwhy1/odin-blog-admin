@@ -2,10 +2,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import CreatePost from "../views/CreatePost";
-import Header from "../components/Header";
+import Header from "../components/header/Header";
 import ViewPosts from "../views/ViewPosts";
 import ViewUsers from "../views/ViewUsers";
 import EditPost from "../views/EditPost";
+import ModeButton from "../components/modeButton/ModeButton";
 
 const Dashboard = ({ user, setActiveView, activeView }) => {
   const [currentPost, setCurrentPost] = useState(null);
@@ -26,6 +27,7 @@ const Dashboard = ({ user, setActiveView, activeView }) => {
       {activeView === "view" && <ViewPosts handlePostClick={handlePostClick} />}
       {activeView === "edit" && <EditPost id={currentPost} />}
       {activeView === "user" && <ViewUsers setActiveView={setActiveView} />}
+      <ModeButton />
     </>
   );
 };

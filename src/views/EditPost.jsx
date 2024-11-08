@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./CreatePost.module.css";
-import Loading from "../components/Loading";
+import Loading from "../components/loading/Loading";
 import PopupContext from "../contexts/PopupContext";
 import LoadingContext from "../contexts/LoadingContext";
 

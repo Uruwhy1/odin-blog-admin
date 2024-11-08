@@ -19,7 +19,6 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (activeView == null) return;
     if (activeView == "edit") return;
 
     localStorage.setItem("activeView", activeView);
@@ -51,16 +50,10 @@ const App = () => {
 
     if (storedView) {
       setActiveView(storedView);
+      if (activeView == null) setActiveView("create");
     }
 
     setLoading(false);
-  }, []);
-
-  // handle dark mode
-  useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.querySelector(":root").classList.add("dark");
-    }
   }, []);
 
   if (loading) return <div>Loading...</div>;

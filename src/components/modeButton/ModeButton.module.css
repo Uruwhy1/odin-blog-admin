@@ -1,0 +1,49 @@
+.container {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+
+  width: 120px;
+  background-color: #27173a;
+  padding: 0.5rem;
+  border-radius: 50px;
+  transition: all 0.3s;
+
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.toggle {
+  background-color: rgb(230, 196, 23);
+  height: 40px;
+  width: 40px;
+
+  border-radius: 50%;
+
+  left: 0;
+  transition: transform 0.5s;
+
+  &&:before {
+    content: "";
+    background-color: #27173a;
+
+    width: 40px;
+    height: 100%;
+
+    position: absolute;
+    border-radius: 50%;
+
+    left: -40px;
+    transition: all 0.5s;
+  }
+}
+
+.container.dark {
+  > .toggle {
+    transform: translateX(calc(100% + 25px));
+
+    &::before {
+      left: -15px;
+    }
+  }
+}

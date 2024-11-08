@@ -47,8 +47,8 @@
   --toggle-positive-bg: var(--success);
 
   --user-user-bg: #f0f8ff;
-  --user-author-bg: #e6ffe6;
-  --user-admin-bg: #ffe6e6;
+  --user-author-bg: var(--success);
+  --user-admin-bg: var(--error);
 }
 
 :root.dark {
