@@ -84,7 +84,8 @@ const App = () => {
               <Navigate to="/" />
             )
           }
-        />
+        />{" "}
+        <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
