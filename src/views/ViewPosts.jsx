@@ -101,10 +101,10 @@ const ViewPosts = ({ handlePostClick }) => {
       setPosts((prevPosts) => prevPosts.filter((p) => p.id !== postID));
       setFilteredPosts((prevPosts) => prevPosts.filter((p) => p.id !== postID));
 
-      alert("Post deleted successfully.");
+      showPopup("Post deleted successfully.", true);
     } catch (error) {
       console.error("Error deleting post:", error);
-      alert("Error deleting post: " + error.message);
+      showPopup(error.message, false);
     }
   };
 

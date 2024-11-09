@@ -36,7 +36,6 @@ const Login = ({ setIsLoggedIn }) => {
       if (decodedToken.role !== "USER") {
         setIsLoggedIn(true);
         window.location.href = "/dashboard";
-        showPopup("Logged in successfully.", true);
       } else {
         showPopup("Access denied, only authors or admins can enter.", false);
         localStorage.removeItem("authToken");
