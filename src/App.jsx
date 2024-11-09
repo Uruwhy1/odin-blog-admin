@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import "./variables.css";
 import "./App.css";
 import "./reset.css";
+import Loading from "./components/loading/Loading";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,15 +19,9 @@ const App = () => {
   const [activeView, setActiveView] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (activeView == "edit") return;
-
-    localStorage.setItem("activeView", activeView);
-  }, [activeView]);
-
+  const storedView = localStorage.getItem("activeView");
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    const storedView = localStorage.getItem("activeView");
 
     if (token) {
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
@@ -50,13 +45,18 @@ const App = () => {
 
     if (storedView) {
       setActiveView(storedView);
-      if (activeView == null) setActiveView("create");
     }
 
     setLoading(false);
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  useEffect(() => {
+    if (activeView == "edit") return;
+
+    localStorage.setItem("activeView", activeView);
+  }, [activeView]);
+
+  if (loading) return <Loading />;
 
   return (
     <Router>

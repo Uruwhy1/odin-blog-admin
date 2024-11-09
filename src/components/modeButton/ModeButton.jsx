@@ -6,18 +6,23 @@ const ModeButton = () => {
   const { mode, setMode } = useContext(ModeContext);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    const storedMode = localStorage.getItem("mode");
+    if (storedMode) {
+      setMode(storedMode);
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setMode("dark");
+    } else {
+      setMode("light");
     }
-  }, [setMode]);
+  }, []);
 
   useEffect(() => {
-    document.querySelector(":root").classList.toggle("dark");
+    document.querySelector(":root").classList.toggle("dark", mode === "dark");
   }, [mode]);
 
   const handleClick = () => {
-    if (mode == "dark") setMode("light");
-    else setMode("dark");
+    setMode(mode === "dark" ? "light" : "dark");
+    localStorage.setItem("mode", mode === "dark" ? "light" : "dark");
   };
 
   return (
