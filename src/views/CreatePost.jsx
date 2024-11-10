@@ -1,8 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import PopupContext from "../contexts/PopupContext";
-
 import styles from "./CreatePost.module.css";
 import Markdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeRaw from "rehype-raw";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -149,7 +151,30 @@ const CreatePost = () => {
           <p className={styles.subtitle}>{summary}</p>
         </div>
         <div className={styles.markdown}>
-          <Markdown>{content}</Markdown>
+          <Markdown
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              code({ inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={vscDarkPlus}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {content}
+          </Markdown>
         </div>
       </div>
     </main>

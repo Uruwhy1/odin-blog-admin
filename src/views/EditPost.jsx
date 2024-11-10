@@ -3,16 +3,19 @@ import styles from "./CreatePost.module.css";
 import Loading from "../components/loading/Loading";
 import PopupContext from "../contexts/PopupContext";
 import LoadingContext from "../contexts/LoadingContext";
-
 import PropTypes from "prop-types";
 import Markdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeRaw from "rehype-raw";
 
 const EditPost = ({ id }) => {
   const [post, setPost] = useState([]);
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
-  const [imageLink, setImageLink] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [originalImage, setOriginalImage] = useState(null);
   const [showCarousel, setShowCarousel] = useState(false);
   const token = localStorage.getItem("authToken");
@@ -24,7 +27,6 @@ const EditPost = ({ id }) => {
 
   // Initial post fetching
   useEffect(() => {
-    console.log("Xd");
     setLoading(true);
     const fetchPost = async () => {
       try {
@@ -37,8 +39,8 @@ const EditPost = ({ id }) => {
         setTitle(data.title);
         setSummary(data.summary);
         setContent(data.content);
-        setImageLink(data.imageLink);
-        setOriginalImage(data.imageLink);
+        setImageFile(data.imageFile);
+        setOriginalImage(data.imageFile);
         setShowCarousel(data.showCarousel);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -59,14 +61,13 @@ const EditPost = ({ id }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImageLink(file);
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   };
-
   const uploadImage = async () => {
-    // check if image is new, otherwise do not upload
-    if (imageLink && imageLink !== originalImage) {
+    if (imageFile && imageFile !== originalImage) {
       const formData = new FormData();
-      formData.append("image", imageLink);
+      formData.append("image", imageFile);
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
         method: "POST",
@@ -105,7 +106,7 @@ const EditPost = ({ id }) => {
             title,
             summary,
             content,
-            imageLink: imageUrl,
+            imageFile: imageUrl,
             showCarousel,
           }),
         }
@@ -171,9 +172,9 @@ const EditPost = ({ id }) => {
           </form>
 
           <div className={styles.content}>
-            {imageLink && (
+            {imageFile && (
               <img
-                src={imageLink}
+                src={imagePreview}
                 alt="Selected file preview"
                 className={styles.previewImg}
               />
@@ -183,7 +184,30 @@ const EditPost = ({ id }) => {
               <p className={styles.subtitle}>{summary}</p>
             </div>
             <div className={styles.markdown}>
-              <Markdown>{content}</Markdown>
+              <Markdown
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  code({ inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || "");
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        style={vscDarkPlus}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, "")}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              >
+                {content}
+              </Markdown>
             </div>
           </div>
         </main>
