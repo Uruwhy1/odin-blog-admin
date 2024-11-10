@@ -39,8 +39,8 @@ const EditPost = ({ id }) => {
         setTitle(data.title);
         setSummary(data.summary);
         setContent(data.content);
-        setImageFile(data.imageFile);
-        setOriginalImage(data.imageFile);
+        setImagePreview(data.imageLink);
+        setOriginalImage(data.imageLink);
         setShowCarousel(data.showCarousel);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -64,6 +64,7 @@ const EditPost = ({ id }) => {
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
   };
+
   const uploadImage = async () => {
     if (imageFile && imageFile !== originalImage) {
       const formData = new FormData();
@@ -106,7 +107,7 @@ const EditPost = ({ id }) => {
             title,
             summary,
             content,
-            imageFile: imageUrl,
+            imageLink: imageUrl,
             showCarousel,
           }),
         }
@@ -172,7 +173,7 @@ const EditPost = ({ id }) => {
           </form>
 
           <div className={styles.content}>
-            {imageFile && (
+            {imagePreview && (
               <img
                 src={imagePreview}
                 alt="Selected file preview"
